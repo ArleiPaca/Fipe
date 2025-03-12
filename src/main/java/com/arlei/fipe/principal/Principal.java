@@ -2,9 +2,11 @@ package com.arlei.fipe.principal;
 
 import com.arlei.fipe.model.Dados;
 import com.arlei.fipe.model.Modelos;
+import com.arlei.fipe.model.Veiculo;
 import com.arlei.fipe.service.ConsumoAPI;
 import com.arlei.fipe.service.ConverteDados;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -97,6 +99,34 @@ public class Principal {
 
         System.out.println("Modelos filtrados");
         modelosFiltrados.forEach(System.out::println);
+
+       System.out.println("Digite por favor o código do modelo");
+
+        var codigoModelo = leitura.next();
+
+        var endereco = URL_BASE + tipo + "/" + codigo + "/modelos" + "/" + codigoModelo + "/anos";
+        System.out.println(endereco);
+        json = consumo.obterDados(endereco);
+        List<Dados> anos = conversor.obterlista(json, Dados.class);
+        System.out.println(anos);
+
+        //https://parallelum.com.br/fipe/api/v1/carros/marcas/21/modelos/7097/anos/2015-1
+
+        List<Veiculo> veiculos = new ArrayList<>();
+
+
+
+        for ( int i = 0; i < anos.size(); i++) {
+            var enderecoAnos = endereco + "/" + anos.get(i).codigo();
+            System.out.println(enderecoAnos);
+            json = consumo.obterDados(enderecoAnos);
+            System.out.println(json);
+            Veiculo veiculo = conversor.obterDados (json, Veiculo.class);
+            veiculos.add(veiculo);
+        }
+
+        System.out.println("\nTodos os veiculos filtrados com avaliações por ano: "); veiculos.forEach(System.out::println);
+
 
 
     }

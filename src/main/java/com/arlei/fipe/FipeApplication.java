@@ -15,6 +15,9 @@ public class FipeApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
          //https://deividfortuna.github.io/fipe/
+		//https://parallelum.com.br/fipe/api/v1/carros/marcas/21/modelos
+		//https://parallelum.com.br/fipe/api/v1/carros/marcas/21/modelos/7132/anos
+
 		Principal principal = new Principal();
 		principal.exibeMenu();
 
